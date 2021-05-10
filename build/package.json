@@ -1,0 +1,25 @@
+{
+  "title": "OBS Dock Clock",
+  "author": {
+    "name": "Mark Seymour",
+    "email": "mark.seymour.ns@gmail.com"
+  },
+  "private": true,
+  "engines": {
+    "node": ">= 16.1.0"
+  },
+  "devDependencies": {
+    "@babel/core": "^7.14.0",
+    "@babel/preset-env": "^7.14.1",
+    "grunt": "^1.4.0",
+    "grunt-babel": "^8.0.0",
+    "grunt-contrib-jshint": "^3.0.0",
+    "grunt-contrib-watch": "^1.1.0",
+    "grunt-dart-sass": "^2.0.1",
+    "grunt-stylelint": "^0.16.0",
+    "load-grunt-tasks": "^5.1.0",
+    "obs-websocket-js": "^4.0.2",
+    "sass": "^1.32.12",
+    "stylelint": "^13.13.1"
+  }
+}

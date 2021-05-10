@@ -1,0 +1,11 @@
+# Build assets
+/build/node_modules/
+
+# Project assets
+/htdocs/assets/*
+!/htdocs/assets/.gitkeep
+
+# System files
+.DS_Store
+.tags
+.tags1
