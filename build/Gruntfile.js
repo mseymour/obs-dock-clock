@@ -8,7 +8,7 @@ module.exports = function(grunt) {
     'dart-sass': {
       target: {
         files: {
-          '../htdocs/assets/dock.css': 'assets/scss/dock.scss'
+          '../dist/assets/dock.css': 'assets/scss/dock.scss'
         }
       }
     },
@@ -25,7 +25,7 @@ module.exports = function(grunt) {
       },
       dist: {
         files: {
-          '../htdocs/assets/dock.js': 'assets/js/dock.js'
+          '../dist/assets/dock.js': 'assets/js/dock.js'
         }
       }
     },
@@ -49,14 +49,45 @@ module.exports = function(grunt) {
       gruntfile: {
         src: 'Gruntfile.js'
       },
-      lib_test: {
+      build: {
         src: ['assets/**/*.js']
+      }
+    },
+    copy: {
+      main: {
+        files: [
+          {
+            expand: true,
+            cwd: 'htdocs/',
+            src: ['**'],
+            dest: '../dist/',
+            filter: 'isFile'
+          },
+          {
+            expand: true,
+            cwd: 'node_modules/obs-websocket-js/dist/',
+            src: [
+              'obs-websocket.min.js',
+              'obs-websocket.min.js.map',
+            ],
+            dest: '../dist/assets/',
+            filter: 'isFile'
+          }
+        ]
       }
     },
     watch: {
       gruntfile: {
         files: '<%= jshint.gruntfile.src %>',
-        tasks: ['jshint', 'stylelint', 'dart-sass', 'babel']
+        tasks: ['jshint', 'stylelint', 'dart-sass', 'babel', 'copy']
+      },
+      build: {
+        files: [
+          'assets/**/*.js',
+          'assets/**/*.scss',
+          'htdocs/**/*'
+        ],
+        tasks: ['copy', 'jshint', 'stylelint', 'dart-sass', 'babel']
       }
     }
   });
@@ -65,6 +96,6 @@ module.exports = function(grunt) {
   require('load-grunt-tasks')(grunt);
 
   // Default task.
-  grunt.registerTask('default', ['jshint', 'stylelint', 'dart-sass', 'babel']);
+  grunt.registerTask('default', ['copy', 'jshint', 'stylelint', 'dart-sass', 'babel']);
 
 };

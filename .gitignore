@@ -2,8 +2,8 @@
 /build/node_modules/
 
 # Project assets
-/htdocs/assets/*
-!/htdocs/assets/.gitkeep
+/dist/*
+!/dist/.gitkeep
 
 # System files
 .DS_Store
