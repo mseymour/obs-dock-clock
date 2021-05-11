@@ -1,15 +1,63 @@
 /*global module:false*/
 module.exports = function(grunt) {
 
-  // Project configuration.
+  /**
+   * Project configuration.
+   */
+
   grunt.initConfig({
-    // Metadata.
+    // Metadata
     pkg: grunt.file.readJSON('package.json'),
+
+
+    // Copy dependency assets to dist
+    copy: {
+      htdocs: {
+        files: [
+          {
+            expand: true,
+            cwd: 'htdocs/',
+            src: ['**'],
+            dest: '../dist/',
+            filter: 'isFile'
+          }
+        ]
+      },
+      node_modules: {
+        files: {
+          expand: true,
+          cwd: 'node_modules/',
+          src: [
+            'obs-websocket-js/dist/obs-websocket.min.js',
+            'obs-websocket-js/dist/obs-websocket.min.js.map',
+            'normalize.css/normalize.css'
+          ],
+          dest: '../dist/assets/'
+        }
+      }
+    },
+
+    // Sass Processing & Linting
     'dart-sass': {
       target: {
         files: {
           '../dist/assets/dock.css': 'assets/scss/dock.scss'
         }
+      }
+    },
+    postcss: {
+      options: {
+        map: {
+            inline: false,
+            annotation: '../dist/assets/'
+        },
+        processors: [
+          require('autoprefixer')(),
+          require('cssnano')()
+        ]
+      },
+      dist: {
+        src: '../dist/assets/**/*.css'
       }
     },
     stylelint: {
@@ -18,6 +66,8 @@ module.exports = function(grunt) {
       },
       all: ['assets/**/*.scss']
     },
+
+    // ECMAScript/JS Processing & Linting
     babel: {
       options: {
         sourceMap: true,
@@ -53,33 +103,12 @@ module.exports = function(grunt) {
         src: ['assets/**/*.js']
       }
     },
-    copy: {
-      main: {
-        files: [
-          {
-            expand: true,
-            cwd: 'htdocs/',
-            src: ['**'],
-            dest: '../dist/',
-            filter: 'isFile'
-          },
-          {
-            expand: true,
-            cwd: 'node_modules/obs-websocket-js/dist/',
-            src: [
-              'obs-websocket.min.js',
-              'obs-websocket.min.js.map',
-            ],
-            dest: '../dist/assets/',
-            filter: 'isFile'
-          }
-        ]
-      }
-    },
+
+    // Development
     watch: {
       gruntfile: {
         files: '<%= jshint.gruntfile.src %>',
-        tasks: ['jshint', 'stylelint', 'dart-sass', 'babel', 'copy']
+        tasks: ['copy', 'jshint', 'stylelint', 'dart-sass', 'postcss', 'babel']
       },
       build: {
         files: [
@@ -87,15 +116,15 @@ module.exports = function(grunt) {
           'assets/**/*.scss',
           'htdocs/**/*'
         ],
-        tasks: ['copy', 'jshint', 'stylelint', 'dart-sass', 'babel']
+        tasks: ['copy', 'jshint', 'stylelint', 'dart-sass', 'postcss', 'babel']
       }
     }
   });
 
-  // These plugins provide necessary tasks.
+  // Automatically load all grunt task dependencies
   require('load-grunt-tasks')(grunt);
 
-  // Default task.
+  // Default task
   grunt.registerTask('default', ['copy', 'jshint', 'stylelint', 'dart-sass', 'babel']);
 
 };

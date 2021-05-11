@@ -1,0 +1,11 @@
+@use 'sass:map';
+
+/**
+ * Functions
+ *
+ * Useful functions for getting the current theme variables etc.
+ */
+
+@function getThemeColor() {
+  @return map.get($colors, $theme);
+}

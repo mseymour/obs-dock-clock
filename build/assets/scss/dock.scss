@@ -4,4 +4,8 @@
  * - Implement animations for stream, record, number changes
  */
 
-// @import '';
+@import 'abstracts/variables';
+@import 'abstracts/functions';
+@import 'abstracts/mixins';
+
+@import 'base/general';

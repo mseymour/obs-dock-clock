@@ -11,6 +11,8 @@
   "devDependencies": {
     "@babel/core": "^7.14.0",
     "@babel/preset-env": "^7.14.1",
+    "@lodder/grunt-postcss": "^3.0.1",
+    "autoprefixer": "^9.8.6",
     "grunt": "^1.4.0",
     "grunt-babel": "^8.0.0",
     "grunt-contrib-copy": "^1.0.0",
@@ -19,7 +21,9 @@
     "grunt-dart-sass": "^2.0.1",
     "grunt-stylelint": "^0.16.0",
     "load-grunt-tasks": "^5.1.0",
+    "normalize.css": "^8.0.1",
     "obs-websocket-js": "^4.0.2",
+    "postcss": "^8.2.15",
     "sass": "^1.32.12",
     "stylelint": "^13.13.1"
   }

@@ -1,0 +1,11 @@
+@use 'sass:color';
+
+html {
+  font-size: 62.5%;
+}
+
+body {
+  font-size: 16px;
+  color: getThemeColor();
+  background-color: color.scale(getThemeColor(), $blackness: $background-dim);
+}
