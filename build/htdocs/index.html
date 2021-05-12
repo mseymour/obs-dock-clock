@@ -4,11 +4,19 @@
     <meta charset="utf-8">
     <title>OBS Browser Dock Clock</title>
     <link rel="stylesheet" href="assets/normalize.css">
-    <link rel="stylesheet" href="assets/dock.css">
+    <link rel="stylesheet" href="assets/main.css">
+    <script type="text/javascript">
+      // Change your OBS WebSocket options here!
+      var config = {
+        address: 'localhost:4444',
+        password: ''
+      };
+    </script>
   </head>
   <body>
-
+    <div id="clock">
+    </div>
     <script src="assets/obs-websocket.min.js" charset="utf-8"></script>
-    <script src="assets/dock.js" charset="utf-8"></script>
+    <script src="assets/main.js" charset="utf-8"></script>
   </body>
 </html>
