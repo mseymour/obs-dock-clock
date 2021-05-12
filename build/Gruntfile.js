@@ -73,17 +73,6 @@ module.exports = function(grunt) {
     },
 
     // ECMAScript/JS Processing & Linting
-    // babel: {
-    //   options: {
-    //     sourceMaps: true,
-    //     presets: ['@babel/preset-env']
-    //   },
-    //   dist: {
-    //     files: {
-    //       '../dist/assets/main.js': 'assets/js/main.js'
-    //     }
-    //   }
-    // },
     rollup: {
       options: {
         sourceMap: true,
@@ -103,21 +92,7 @@ module.exports = function(grunt) {
     },
     jshint: {
       options: {
-        boss: true,
-        browser: true,
-        curly: true,
-        eqeqeq: true,
-        eqnull: true,
-        esversion: 6,
-        immed: true,
-        latedef: true,
-        newcap: true,
-        noarg: true,
-        node: true,
-        sub: true,
-        undef: true,
-        unused: true,
-        globals: {},
+        esversion: 6
       },
       gruntfile: {
         src: 'Gruntfile.js'
