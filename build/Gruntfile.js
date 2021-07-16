@@ -41,10 +41,17 @@ module.exports = function(grunt) {
         ]
       }
     },
+    smoosher: {
+      dist: {
+        files: [
+          {'../dist/index.html': '../dist/index.html'}
+        ]
+      }
+    },
 
     // Sass Processing & Linting
     'dart-sass': {
-      target: {
+      dist: {
         files: {
           '../dist/assets/main.css': 'assets/scss/main.scss'
         }
@@ -106,14 +113,14 @@ module.exports = function(grunt) {
     watch: {
       gruntfile: {
         files: '<%= jshint.gruntfile.src %>',
-        tasks: ['copy', 'stylelint', 'dart-sass', 'postcss', 'jshint', 'rollup']
+        tasks: ['default']
       },
       build: {
         files: [
           'assets/**/*.{scss,js}',
           'htdocs/**/*'
         ],
-        tasks: ['copy', 'stylelint', 'dart-sass', 'postcss', 'jshint', 'rollup']
+        tasks: ['default']
       }
     }
   });
@@ -122,6 +129,6 @@ module.exports = function(grunt) {
   require('load-grunt-tasks')(grunt);
 
   // Default task
-  grunt.registerTask('default', ['copy', 'stylelint', 'dart-sass', 'postcss', 'jshint', 'rollup']);
+  grunt.registerTask('default', ['copy', 'stylelint', 'dart-sass', 'postcss', 'jshint', 'rollup', 'smoosher']);
 
 };

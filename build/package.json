@@ -20,6 +20,7 @@
     "grunt-contrib-jshint": "^3.0.0",
     "grunt-contrib-watch": "^1.1.0",
     "grunt-dart-sass": "^2.0.1",
+    "grunt-html-smoosher": "^3.0.0",
     "grunt-rollup": "^11.5.0",
     "grunt-stylelint": "^0.16.0",
     "load-grunt-tasks": "^5.1.0",
