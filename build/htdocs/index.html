@@ -15,7 +15,43 @@
   </head>
   <body>
     <div id="clock">
+      <template id="tmp-clock">
+        <div class="clock">
+          <div class="clock__display"></div>
+          <div class="clock__label"></div>
+        </div>
+      </template>
+
+      <template id="tmp-clock-element">
+        <div class="clock__element">
+          <span data-digit="0">
+            <span aria-hidden="true" class="clock__digit clock__digit--prev">-</span>
+            <span class="clock__digit clock__digit--cur">-</span>
+          </span>
+          <span data-digit="1">
+            <span aria-hidden="true" class="clock__digit clock__digit--prev">-</span>
+            <span class="clock__digit clock__digit--cur">-</span>
+          </span>
+        </div>
+      </template>
+
+      <template id="tmp-clock-separator">
+        <div class="clock__element">
+          <span class="clock__sep">:</span>
+        </div>
+      </template>
     </div>
+
+    <template id="tmp-alert">
+      <div class="alert-cover">
+        <div class="alert" role="alertdialog" aria-labelledby="alertDialogTitle" aria-describedby="alertDialogDesc">
+          <h1 id="alertDialogTitle"></h1>
+          <p id="alertDialogDesc"></p>
+          <button>OK</button>
+        </div>
+      </div>
+    </template>
+
     <script src="assets/obs-websocket.min.js" charset="utf-8"></script>
     <script src="assets/main.js" charset="utf-8"></script>
   </body>
