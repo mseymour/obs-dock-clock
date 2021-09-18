@@ -1,4 +1,5 @@
 /*globals OBSWebSocket*/
+import Alert from './alert';
 
 /**
  * DockClock Class
@@ -54,7 +55,12 @@ export default class DockClock {
       }, this.options.interval_ms);
     })
     .catch(err => {
-        console.error('Promise error:', err);
+        console.error('Promise error:', err.error, err.description);
+        const alert = new Alert({
+          title: err.error,
+          description: err.description
+        });
+        alert.display();
     });
 
     this.obs.on('error', err => {
