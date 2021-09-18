@@ -109,8 +109,23 @@ module.exports = function(grunt) {
       }
     },
 
+    // Serve
+    connect: {
+      server: {
+        options: {
+          port: 8000,
+          hostname: 'localhost',
+          livereload: 35729,
+          base: '../dist'
+        }
+      }
+    },
+
     // Development
     watch: {
+      options: {
+        livereload: 35729
+      },
       gruntfile: {
         files: '<%= jshint.gruntfile.src %>',
         tasks: ['default']
@@ -128,7 +143,8 @@ module.exports = function(grunt) {
   // Automatically load all grunt task dependencies
   require('load-grunt-tasks')(grunt);
 
-  // Default task
+  // Tasks
   grunt.registerTask('default', ['copy', 'stylelint', 'dart-sass', 'postcss', 'jshint', 'rollup', 'smoosher']);
+  grunt.registerTask('server', ['connect', 'watch']);
 
 };
