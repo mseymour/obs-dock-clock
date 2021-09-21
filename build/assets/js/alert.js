@@ -1,3 +1,5 @@
+export let alertCounter = 0;
+
 /**
  * Alert class
  *
@@ -19,10 +21,20 @@ export default class Alert {
   display() {
     document.body.appendChild(this.modal);
     this.modal = document.body.lastElementChild;
+    const alert = this.modal.querySelector('.alert');
+    const title = this.modal.querySelector('#alertDialogTitle');
+    const desc = this.modal.querySelector('#alertDialogDesc');
+
+    // Set unique attributes
+    const id = ++alertCounter;
+    alert.setAttribute('aria-labelledby', alert.getAttribute('aria-labelledby') + id);
+    alert.setAttribute('aria-describedby', alert.getAttribute('aria-describedby') + id);
+    title.setAttribute('id', title.getAttribute('id') + id);
+    desc.setAttribute('id', desc.getAttribute('id') + id);
 
     // Set modal content
-    this.modal.querySelector('#alertDialogTitle').textContent = this.options.title;
-    this.modal.querySelector('#alertDialogDesc').textContent = this.options.description;
+    title.textContent = this.options.title;
+    desc.textContent = this.options.description;
 
     // Add event listener for clicking close button
     // @TODO Apply to clicking on outside of modal as well
@@ -43,7 +55,6 @@ export default class Alert {
     // Add class for closing animation, remove after completion
     this.modal.classList.add('alert-cover--closing');
     this.modal.addEventListener('animationend', function handle () {
-      console.log('animationend');
       this.removeEventListener('animationend', handle);
       modal.remove();
     });

@@ -47,13 +47,6 @@ export default class DockClock {
       // Set up clock
       this.clockSetUp();
     })
-    .then(() => {
-      // Set up tick
-      let self = this;
-      this.interval = setInterval(() => {
-        self.tick();
-      }, this.options.interval_ms);
-    })
     .catch(err => {
         console.error('Promise error:', err.error, err.description);
         const alert = new Alert({
@@ -63,8 +56,29 @@ export default class DockClock {
         alert.display();
     });
 
+    this.obs.on('AuthenticationSuccess', data => {
+      // Set up tick
+      self.interval = setInterval(() => {
+        self.tick();
+      }, self.options.interval_ms);
+    });
+
     this.obs.on('error', err => {
       console.error('Socket error:', err);
+      const alert = new Alert({
+        title: err.error,
+        description: err.description
+      });
+      alert.display();
+    });
+
+    this.obs.on('ConnectionClosed', data => {
+      self.destroy();
+      const alert = new Alert({
+        title: 'Connection Closed',
+        description: 'OBS was closed.'
+      });
+      alert.display();
     });
   }
 
@@ -103,13 +117,14 @@ export default class DockClock {
    * A single clock tick.
    */
   tick() {
-    console.log(this.obs);
+    console.debug(this.obs);
   }
 
   /**
    * Destroys the clock.
    */
   destroy() {
+    console.debug('Disonnecting from WebSocket and stopping clock...');
     clearInterval(this.interval);
     this.obs.disconnect();
   }

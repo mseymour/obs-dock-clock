@@ -41,13 +41,13 @@ module.exports = function(grunt) {
         ]
       }
     },
-    smoosher: {
-      dist: {
-        files: [
-          {'../dist/index.html': '../dist/index.html'}
-        ]
-      }
-    },
+    // smoosher: {
+    //   dist: {
+    //     files: [
+    //       {'../dist/index.html': '../dist/index.html'}
+    //     ]
+    //   }
+    // },
 
     // Sass Processing & Linting
     'dart-sass': {
@@ -144,7 +144,7 @@ module.exports = function(grunt) {
   require('load-grunt-tasks')(grunt);
 
   // Tasks
-  grunt.registerTask('default', ['copy', 'stylelint', 'dart-sass', 'postcss', 'jshint', 'rollup', 'smoosher']);
+  grunt.registerTask('default', ['copy', 'stylelint', 'dart-sass', 'postcss', 'jshint', 'rollup']);
   grunt.registerTask('server', ['connect', 'watch']);
 
 };
