@@ -30,6 +30,11 @@ export default class DockClock {
 
     this.interval = null;
 
+    this.isStreaming = false;
+    this.streamTime = null;
+    this.isRecording = false;
+    this.recordTime = null;
+
     this.setup();
   }
 
@@ -61,6 +66,13 @@ export default class DockClock {
       self.interval = setInterval(() => {
         self.tick();
       }, self.options.interval_ms);
+    });
+
+    this.obs.on('StreamStatus', data => {
+      self.isStreaming = data.streaming;
+      self.streamTime = data.totalStreamTime;
+      self.isRecording = data.recording;
+      self.recordTime = data.totalRecordTime;
     });
 
     this.obs.on('error', err => {
@@ -117,7 +129,7 @@ export default class DockClock {
    * A single clock tick.
    */
   tick() {
-    console.debug(this.obs);
+    console.debug(this);
   }
 
   /**
