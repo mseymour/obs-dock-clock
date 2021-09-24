@@ -1,4 +1,5 @@
 /*globals OBSWebSocket*/
+import ClockDisplay from './clock-display';
 import Alert from './alert';
 
 /**
@@ -16,8 +17,8 @@ export default class DockClock {
    */
   constructor(element, options = {}) {
     const default_options = {
-      address: 'localhost:4444',
-      password: '',
+      address:     'localhost:4444',
+      password:    '',
       interval_ms: 1000,
     };
 
@@ -31,9 +32,9 @@ export default class DockClock {
     this.interval = null;
 
     this.isStreaming = false;
-    this.streamTime = null;
+    this.streamTime  = null;
     this.isRecording = false;
-    this.recordTime = null;
+    this.recordTime  = null;
 
     this.setup();
   }
@@ -45,7 +46,7 @@ export default class DockClock {
     let self = this;
 
     this.obs.connect({
-      address: this.options.address,
+      address:  this.options.address,
       password: this.options.password,
     })
     .then(() => {
@@ -55,7 +56,7 @@ export default class DockClock {
     .catch(err => {
         console.error('Promise error:', err.error, err.description);
         const alert = new Alert({
-          title: err.error,
+          title:       err.error,
           description: err.description
         });
         alert.display();
@@ -70,9 +71,9 @@ export default class DockClock {
 
     this.obs.on('StreamStatus', data => {
       self.isStreaming = data.streaming;
-      self.streamTime = data.totalStreamTime;
+      self.streamTime  = data.totalStreamTime;
       self.isRecording = data.recording;
-      self.recordTime = data.totalRecordTime;
+      self.recordTime  = data.totalRecordTime;
     });
 
     this.obs.on('error', err => {
@@ -99,37 +100,16 @@ export default class DockClock {
    */
   clockSetUp() {
     // Clock container, display
-    let container = document.querySelector('#clock'),
-        display;
-    // Clock element templates
-    const format            = 'h:ms',
-          displayTemplate   = document.querySelector('#tmp-clock'),
-          elementTemplate   = document.querySelector('#tmp-clock-element'),
-          separatorTemplate = document.querySelector('#tmp-clock-separator');
-
-    display = displayTemplate.content.cloneNode(true);
-
-    [...format].forEach(char => {
-      if (char === ':') {
-        display.querySelector('.clock__display').appendChild(separatorTemplate.content.cloneNode(true));
-      } else {
-        let clone   = elementTemplate.content.cloneNode(true),
-            element = clone.querySelector('.clock__element');
-        element.setAttribute('data-element-type', char);
-        display.querySelector('.clock__display').appendChild(clone);
-      }
-    });
-
-    display.querySelector('.clock__label').textContent = 'Local Time';
-
-    container.appendChild(display);
+    let container = document.querySelector('#clock');
+    this.clocks.push(new ClockDisplay(container, 'Local Time', Date.now(), 'clock'));
+    this.clocks.push(new ClockDisplay(container, 'Timer', Date.now(), 'timer'));
   }
 
   /**
    * A single clock tick.
    */
   tick() {
-    console.debug(this);
+    this.clocks.forEach(clock => clock.update());
   }
 
   /**
