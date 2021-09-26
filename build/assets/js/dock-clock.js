@@ -16,10 +16,13 @@ export default class DockClock {
    * @param [options]  The options for the class
    */
   constructor(element, options = {}) {
+    this.initialTime = new Date();
+
     const default_options = {
       address:     'localhost:4444',
       password:    '',
       interval_ms: 1000,
+      // interval_ms: 500,
     };
 
     this.element = element;
@@ -54,7 +57,7 @@ export default class DockClock {
       this.clockSetUp();
     })
     .catch(err => {
-        console.error('Promise error:', err.error, err.description);
+        console.error('Promise error:', err);
         const alert = new Alert({
           title:       err.error,
           description: err.description
@@ -101,8 +104,8 @@ export default class DockClock {
   clockSetUp() {
     // Clock container, display
     let container = document.querySelector('#clock');
-    this.clocks.push(new ClockDisplay(container, 'Local Time', Date.now(), 'clock'));
-    this.clocks.push(new ClockDisplay(container, 'Timer', Date.now(), 'timer'));
+    this.clocks.push(new ClockDisplay(container, 'Local Time', 'clock'));
+    this.clocks.push(new ClockDisplay(container, 'Timer', 'timer', this.initialTime));
   }
 
   /**

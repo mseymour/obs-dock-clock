@@ -23,22 +23,30 @@
       </template>
 
       <template id="tmp-clock-element">
-        <div class="clock__element">
-          <span data-digit="0">
-            <span aria-hidden="true" class="clock__digit clock__digit--prev">-</span>
-            <span class="clock__digit clock__digit--cur">-</span>
-          </span>
-          <span data-digit="1">
-            <span aria-hidden="true" class="clock__digit clock__digit--prev">-</span>
-            <span class="clock__digit clock__digit--cur">-</span>
-          </span>
-        </div>
+        <div class="clock__element" data-element-type=""></div>
+      </template>
+
+      <template id="tmp-clock-digit">
+        <span data-digit="">
+          <span aria-hidden="true" class="clock__digit clock__digit--prev">-</span>
+          <span class="clock__digit clock__digit--cur">-</span>
+        </span>
       </template>
 
       <template id="tmp-clock-separator">
-        <div class="clock__element">
-          <span class="clock__sep">:</span>
-        </div>
+        <span class="clock__sep">:</span>
+      </template>
+
+      <template id="tmp-clock-period">
+        <span data-period>
+          <span class="clock__period--am">am</span>
+          <span aria-hidden="true" class="clock__period--pm">pm</span>
+        </span>
+      </template>
+
+      <template id="tmp-clock-status">
+        <span class="clock__status">S</span>
+        <span class="clock__status">R</span>
       </template>
     </div>
 

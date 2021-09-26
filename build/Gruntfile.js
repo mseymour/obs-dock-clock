@@ -99,7 +99,7 @@ module.exports = function(grunt) {
     },
     jshint: {
       options: {
-        esversion: 6
+        esversion: 11
       },
       gruntfile: {
         src: 'Gruntfile.js'
